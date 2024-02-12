@@ -8,7 +8,7 @@ namespace MauiAppLogin.Resources.ViewModels
 {
     internal class LoginViewModel
     {
-        public string webApiKey = "AIzaSyCL9tNQqeYhtuW3Xc0xl492qriAhcsjcus";
+        public string webApiKey = " ";
         private INavigation _navigation;
 
         public Command RegisterBtn { get; }

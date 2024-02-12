@@ -1,13 +1,17 @@
-﻿Using Firebase.Auth;
-Using Newtonsoft.Json;
+﻿using Firebase.Auth;
+using Newtonsoft.Json;
 
 namespace MauiAppLogin.Resources.ViewModels
 {
+    var email = RegisterViewModel.Email;
+    var password = RegisterViewModel.Password;
+
     internal class RegisterViewModel
     {
         public string webApiKey = "AIzaSyCL9tNQqeYhtuW3Xc0xl492qriAhcsjcus";
 
         private INavigation _navigation;
+
 
 
         public Command RegisterUser { get; }
