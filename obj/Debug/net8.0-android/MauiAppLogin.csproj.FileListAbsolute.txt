@@ -1035,4 +1035,5 @@ C:\Users\emmya\Documents\netmaui\MauiAppLogin\obj\Debug\net8.0-android\stamp\_Co
 C:\Users\emmya\Documents\netmaui\MauiAppLogin\obj\Debug\net8.0-android\stamp\_GenerateJavaStubs.stamp
 C:\Users\emmya\Documents\netmaui\MauiAppLogin\obj\Debug\net8.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\emmya\Documents\netmaui\MauiAppLogin\obj\Debug\net8.0-android\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\emmya\Documents\netmaui\MauiAppLogin\obj\Debug\net8.0-android\MauiAppLogin.sourcelink.json
 C:\Users\emmya\Documents\netmaui\MauiAppLogin\obj\Debug\net8.0-android\android\assets\System.Private.CoreLib.dll

@@ -8,19 +8,27 @@ namespace MauiAppLogin.Resources.ViewModels
 {
     internal class LoginViewModel
     {
+        public string webApiKey = "AIzaSyCL9tNQqeYhtuW3Xc0xl492qriAhcsjcus";
+        private INavigation _navigation;
+
+        public Command RegisterBtn { get; }
+        public Command LoginBtn { get; }
+
         public LoginViewModel(INavigation navigation) 
         {
             this._navigation = navigation;
             RegisterBtn = new Command(RegisterBtnTappedAsync);
+            LoginBtn = new Command(LoginBtnTappedAsync);
         }
 
-        private INavigation _navigation;
-
-        public Command RegisterBtn { get; }
-
-        private void RegisterBtnTappedAsync(object obj)
+        private async void LoginBtnTappedAsync(object obj)
         {
-            this._navigation.PushAsync(new RegisterPage());
+            await this._navigation.PushAsync(new Dashboard());
+        }
+
+        private async void RegisterBtnTappedAsync(object obj)
+        {
+            await this._navigation.PushAsync(new RegisterPage());
         }
     }
 }
