@@ -8,7 +8,7 @@ namespace MauiAppLogin.Resources.ViewModels
 
     internal class RegisterViewModel
     {
-        public string webApiKey = "AIzaSyCL9tNQqeYhtuW3Xc0xl492qriAhcsjcus";
+        public string webApiKey = " ";
 
         private INavigation _navigation;
 
