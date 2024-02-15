@@ -5,7 +5,6 @@
              NavigationPage.HasNavigationBar="False">
 
 
-
     <ContentPage.Content>
         <Grid
             BackgroundColor="#1C375C"
@@ -65,12 +64,16 @@
                         Margin="0,20,0,0"
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Email"
+                        TextColor = "Black"
+                        Text="{Binding Email}" 
                         VerticalOptions="FillAndExpand" />
                     <Entry
                         Grid.Row="3"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="True"
                         Placeholder="Password"
+                        TextColor = "Black"
+                        Text="{Binding Password}" 
                         VerticalOptions="FillAndExpand" />
                     <Button
                         Grid.Row="4"
@@ -78,7 +81,6 @@
                         Command = "{Binding RegisterUser}"
                         CornerRadius="20"
                         Text="Register using Email" />
-
                 </Grid>
             </Frame>
         </Grid>

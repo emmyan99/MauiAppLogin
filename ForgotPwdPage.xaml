@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppLogin.ForgotPwdPage">
+
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Email"
+                    TextColor="Black"
+                    Text="{Binding }" />
+
+                <Button
+                    BackgroundColor="#1C375C"
+                    Command="{Binding YourButtonCommand}"
+                    TextColor="White"
+                    CornerRadius="20"
+                    Text="Your Button Text" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,39 +1,73 @@
 ﻿using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
 using Newtonsoft.Json;
+using System.Diagnostics;
+//using ThreadNetwork;
 
-namespace MauiAppLogin.Resources.ViewModels
-{
-    var email = RegisterViewModel.Email;
-    var password = RegisterViewModel.Password;
 
-    internal class RegisterViewModel
+public class RegisterViewModel{
+
+    FirebaseAuthConfig config = new FirebaseAuthConfig
     {
-        public string webApiKey = " ";
-
-        private INavigation _navigation;
-
-
-
-        public Command RegisterUser { get; }
-
-        public RegisterViewModel(INavigation navigation)
+        ApiKey = "",
+        AuthDomain = "",
+        Providers = new FirebaseAuthProvider[]
         {
-            this._navigation = navigation;
+        new EmailProvider()
+    },
+        
+    };
 
-            RegisterUser = new Command(RegisterUserTappedAsync);
+
+    public Command RegisterUser { get; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+
+    private INavigation _navigation;
+
+    public RegisterViewModel(INavigation navigation)
+    {
+        this._navigation = navigation;
+
+        RegisterUser = new Command(RegisterUserTappedAsync);
+    }
+
+
+    public async void RegisterUserTappedAsync(object obj)
+    {
+        var client = new FirebaseAuthClient(config);
+        try
+        {
+            var email = Email;
+            var password = Password;
+
+
+
+            var userCredential = await client.CreateUserWithEmailAndPasswordAsync(email, password);
+            await Application.Current.MainPage.DisplayAlert("Success", "ACCOUNT CREATED.", "OK");
         }
-
-        private async void RegisterUserTappedAsync(object obj)
+        catch (Exception ex)
         {
-            try
-            {
-                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(webApiKey));
-            }
-            catch(Exception ex)
-            {
-                await App.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
-                throw;
-            }
+            // For debugging
+            //Trace.WriteLine($"Error: {ex}");
+           
+            await Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
         }
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
