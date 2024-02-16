@@ -65,7 +65,7 @@
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Email"
                         TextColor = "Black"
-                        Text="{Binding Email}" 
+                        Text="{Binding RegEmail}" 
                         VerticalOptions="FillAndExpand" />
                     <Entry
                         Grid.Row="3"
@@ -73,7 +73,7 @@
                         IsPassword="True"
                         Placeholder="Password"
                         TextColor = "Black"
-                        Text="{Binding Password}" 
+                        Text="{Binding RegPassword}" 
                         VerticalOptions="FillAndExpand" />
                     <Button
                         Grid.Row="4"

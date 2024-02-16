@@ -66,7 +66,7 @@
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Username"
                         TextColor="Black"
-                        Text="{Binding Email}"
+                        Text="{Binding LoginEmail}"
                         VerticalOptions="FillAndExpand" />
                     <Entry
                         Grid.Row="3"
@@ -74,7 +74,7 @@
                         IsPassword="True"
                         Placeholder="Password"
                         TextColor="Black"
-                        Text="{Binding Password}"
+                        Text="{Binding LoginPassword}"
                         VerticalOptions="FillAndExpand" />
                     <Button
                         Grid.Row="4"
@@ -90,7 +90,20 @@
                         TextColor="White"
                         CornerRadius="20"
                         Text="Register using Email" />
-                    
+
+
+                    <StackLayout Grid.Row="6" Orientation="Horizontal">
+                        <Switch
+                            Toggled="OnToggled"
+                            OnColor="Orange" 
+                            ThumbColor="Green"/>
+                        <Label 
+                            Text="Remember Me"
+                            TextColor="Black"
+                            VerticalOptions="Center" 
+                            Margin="5,0,0,0" />
+                    </StackLayout>
+
 
 
                     <StackLayout

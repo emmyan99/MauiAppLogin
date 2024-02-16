@@ -8,7 +8,7 @@ namespace MauiAppLogin
         public RegisterPage()
         {
             InitializeComponent();
-            BindingContext = new RegisterViewModel(Navigation);
+            BindingContext = new AuthenticationViewModel(Navigation);
         }
     }
 }
