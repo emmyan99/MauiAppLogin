@@ -1,6 +1,6 @@
 ﻿using Firebase.Auth;
 using Firebase.Auth.Providers;
-using static Android.Net.Wifi.Hotspot2.Pps.Credential;
+using System.Diagnostics;
 
 
 
@@ -8,8 +8,8 @@ public class AuthenticationViewModel
 {
     FirebaseAuthConfig config = new FirebaseAuthConfig
     {
-        ApiKey = "AIzaSyCL9tNQqeYhtuW3Xc0xl492qriAhcsjcus",
-        AuthDomain = "test-724e3.firebaseapp.com",
+        ApiKey = "",
+        AuthDomain = "",
         Providers = new FirebaseAuthProvider[]
         {
     new EmailProvider()
@@ -19,7 +19,7 @@ public class AuthenticationViewModel
 
     private INavigation _navigation;
 
-
+    public bool isSwitchToggled { get; set; }
 
     public Command LoginBtn { get; }
     public Command RegisterBtn { get; }
@@ -48,11 +48,21 @@ public class AuthenticationViewModel
     private async void LoginBtnTappedAsync(object obj)
     {
         var client = new FirebaseAuthClient(config);
+        var loginEmail = LoginEmail;
+        var loginPassword = LoginPassword;
+        bool switchStatus = isSwitchToggled;
+        //Trace.WriteLine(" S W I T C H     S T A T U S " + switchStatus);
+
+        if (switchStatus) {
+            await SecureStorage.SetAsync("loginEmail", loginEmail);
+            await SecureStorage.SetAsync("loginPassword", loginPassword);
+        }
+        else { 
+            SecureStorage.RemoveAll();
+        }
 
         try
         {
-            var loginEmail = LoginEmail;
-            var loginPassword = LoginPassword;
             var userCredential = await client.SignInWithEmailAndPasswordAsync(LoginEmail, LoginPassword);
 
             await Application.Current.MainPage.DisplayAlert("Success", "You are being logged in.", "OK");
@@ -85,7 +95,7 @@ public class AuthenticationViewModel
         }
         catch (Exception ex)
         {
-
+            Trace.WriteLine($"ERROR: {ex.Message}");
             await Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
         }
     }
@@ -94,30 +104,19 @@ public class AuthenticationViewModel
     public async Task AutoLoginAsync()
     {
         var client = new FirebaseAuthClient(config);
-        var email = await SecureStorage.GetAsync("email");
-        var password = await SecureStorage.GetAsync("password");
+        var loginEmail = await SecureStorage.GetAsync("loginEmail");
+        var loginPassword = await SecureStorage.GetAsync("loginPassword");
 
-        if (email != null && password != null) {
-            var userCredential = await client.SignInWithEmailAndPasswordAsync(email, password);
+        if (!string.IsNullOrEmpty(loginEmail) && !string.IsNullOrEmpty(loginPassword))
+        {
+            var userCredential = await client.SignInWithEmailAndPasswordAsync(loginEmail, loginPassword);
             await this._navigation.PushAsync(new MauiAppLogin.Dashboard());
         }
-    }
-
-
-
-    public async Task HandleSwitchToggledAsync()
-    {
-        var client = new FirebaseAuthClient(config);
-        var email = await SecureStorage.GetAsync("email");
-        var password = await SecureStorage.GetAsync("password");
-
-        var userCredential = await client.SignInWithEmailAndPasswordAsync(email, password);
-        if (userCredential != null)
+        else
         {
-            await SecureStorage.SetAsync("email", email);
-            await SecureStorage.SetAsync("password", password);
+            Trace.WriteLine("Autologin failed.");
         }
     }
 
-
+    
 }
