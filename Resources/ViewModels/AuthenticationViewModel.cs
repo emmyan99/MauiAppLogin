@@ -12,8 +12,8 @@ public class AuthenticationViewModel
         AuthDomain = "",
         Providers = new FirebaseAuthProvider[]
         {
-    new EmailProvider()
-    },
+        new EmailProvider()
+        },
 
     };
 
@@ -26,7 +26,6 @@ public class AuthenticationViewModel
     public Command RegisterUser { get; }
 
 
-
     public string RegEmail { get; set; }
     public string RegPassword { get; set; }
 
@@ -34,24 +33,22 @@ public class AuthenticationViewModel
     public string LoginPassword { get; set; }
 
 
-
     public AuthenticationViewModel(INavigation navigation)
     {
         this._navigation = navigation;
 
-        LoginBtn = new Command(LoginBtnTappedAsync);
-        RegisterBtn = new Command(RegisterBtnTappedAsync);
-        RegisterUser = new Command(RegisterUserTappedAsync);
+        LoginBtn = new Command(LoginBtnClickedAsync);
+        RegisterBtn = new Command(RegisterBtnClickedAsync);
+        RegisterUser = new Command(RegisterUserClickedAsync);
     }
 
 
-    private async void LoginBtnTappedAsync(object obj)
+    private async void LoginBtnClickedAsync(object obj)
     {
         var client = new FirebaseAuthClient(config);
         var loginEmail = LoginEmail;
         var loginPassword = LoginPassword;
         bool switchStatus = isSwitchToggled;
-        //Trace.WriteLine(" S W I T C H     S T A T U S " + switchStatus);
 
         if (switchStatus) {
             await SecureStorage.SetAsync("loginEmail", loginEmail);
@@ -76,27 +73,29 @@ public class AuthenticationViewModel
     }
 
 
-    private async void RegisterBtnTappedAsync(object obj)
+    private async void RegisterBtnClickedAsync(object obj)
     {
         await this._navigation.PushAsync(new MauiAppLogin.RegisterPage());
     }
 
-    public async void RegisterUserTappedAsync(object obj)
+
+    public async void RegisterUserClickedAsync(object obj)
     {
-        var client = new FirebaseAuthClient(config);
-        try
-        {
-            var regEmail = RegEmail;
-            var regPassword = RegPassword;
-
-
-            var userCredential = await client.CreateUserWithEmailAndPasswordAsync(regEmail, regPassword);
-            await Application.Current.MainPage.DisplayAlert("Success", "ACCOUNT CREATED.", "OK");
-        }
-        catch (Exception ex)
-        {
-            Trace.WriteLine($"ERROR: {ex.Message}");
-            await Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
+        var regEmail = RegEmail;
+        var regPassword = RegPassword;
+        Trace.WriteLine(regEmail);
+        if (!string.IsNullOrEmpty(regEmail) && !string.IsNullOrEmpty(regPassword)) {
+            var client = new FirebaseAuthClient(config);
+            try
+            {
+                var userCredential = await client.CreateUserWithEmailAndPasswordAsync(regEmail, regPassword);
+                await Application.Current.MainPage.DisplayAlert("Success", "ACCOUNT CREATED.", "OK");
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"ERROR: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
+            }
         }
     }
 
@@ -117,6 +116,4 @@ public class AuthenticationViewModel
             Trace.WriteLine("Autologin failed.");
         }
     }
-
-    
 }

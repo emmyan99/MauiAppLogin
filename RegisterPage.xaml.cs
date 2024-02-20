@@ -1,6 +1,4 @@
-﻿//using MauiAppLogin.Resources.ViewModels;
-
-namespace MauiAppLogin
+﻿namespace MauiAppLogin
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPage : ContentPage
